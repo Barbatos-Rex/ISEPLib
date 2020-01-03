@@ -112,8 +112,8 @@ public class FileManager{
     }
 
 
-    public static void fileCreator(String relativePath) throws IOException {
-        File ficheiro = new File(relativePath);
+    public static void fileCreator(String relativePath,String name , String extention) throws IOException {
+        File ficheiro = new File(relativePath+"/"+name+"."+extention);
         try {
             Scanner verificador = new Scanner(ficheiro);
         } catch (FileNotFoundException e) {
