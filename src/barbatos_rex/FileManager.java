@@ -7,6 +7,12 @@ import java.io.PrintWriter;
 import java.util.Scanner;
 
 public class FileManager{
+    public static void renameFile(String relativePathOldFile, String newName,String newExtention){
+        File oldFile = new File(relativePathOldFile);
+
+    }
+
+
     public static void rm(String relativePath){
         Scanner teclado = new Scanner(System.in);
         System.out.print("Pretende eliminar este diretório, juntamente com todo o seu conteûdo? (s/n): ");
@@ -18,15 +24,12 @@ public class FileManager{
             case "yes":
                 System.out.println("A apagar todo o conteúdo do diretório...");
                 File dir = new File(relativePath);
-                try{
                     String contentOfDir[] =dir.list();
                     for(String fileName:contentOfDir){
                         File currentFile = new File(relativePath+"/"+fileName);
                         currentFile.delete();
                     }
-                }catch(NullPointerException e){
                     dir.delete();
-                }
                 System.out.println("Diretório apagado!");
                 break;
             case "n":
@@ -69,6 +72,10 @@ public class FileManager{
         return nLines;
     }
     public static void main(String[] args) throws IOException {
+        mkDir("rato");
+        //rm("rato");
+        //fileCreator("rato","Osório","celiacos");
+        cat("rato/Osório.celiacos");
     }
     public static boolean fileExist(String relativePath) throws IOException {
         File ficheiro = new File(relativePath);
