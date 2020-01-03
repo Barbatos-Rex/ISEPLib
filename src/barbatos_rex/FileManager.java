@@ -7,9 +7,17 @@ import java.io.PrintWriter;
 import java.util.Scanner;
 
 public class FileManager{
-    public static void renameFile(String relativePathOldFile, String newName,String newExtention){
+    public static void renameFile(String relativePathOldFile,String newDir, String newName,String newExtention) throws IOException {
         File oldFile = new File(relativePathOldFile);
-
+        File newFile = new File(newDir+"/"+newName+"."+newExtention);
+        Scanner cont = new Scanner(oldFile);
+        PrintWriter escritor = new PrintWriter(newFile);
+        while(cont.hasNextLine()){
+            escritor.println(cont.nextLine());
+        }
+        escritor.close();
+        cont.close();
+        oldFile.delete();
     }
 
 
@@ -76,6 +84,7 @@ public class FileManager{
         //rm("rato");
         //fileCreator("rato","Osório","celiacos");
         cat("rato/Osório.celiacos");
+        renameFile("rato/Osório.celiacos","rato","Pao","gluten");
     }
     public static boolean fileExist(String relativePath) throws IOException {
         File ficheiro = new File(relativePath);
