@@ -2,16 +2,15 @@ package barbatos_rex;
 
 public class Syntax {
 
-    public static int indexOf(String[] arr,String key){
-        for(int i=0;i<arr.length;i++){
-            if(arr[i].equals(key)){
+    public static int indexOf(String[] arr,String key) {
+        for (int i = 0; i < arr.length; i++) {
+            if (arr[i].equals(key)) {
                 return i;
             }
         }
         return -1;
     }
-
-    public static boolean isNumber(String str){
+    public static boolean isAParsableNumber(String str){
         try {
             Double.parseDouble(str);
             return true;
