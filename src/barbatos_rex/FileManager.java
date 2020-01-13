@@ -6,13 +6,79 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Scanner;
 
-public class FileManager{
-    public static void renameFile(String relativePathOldFile,String newDir, String newName,String newExtention) throws IOException {
+public class FileManager {
+
+    //Creation methods
+
+    public static void mkDir(String relativePath) {
+        new File(relativePath).mkdir();
+    }
+
+    public static void fileCreator(String relativePath, String name, String extention) throws IOException {
+        File ficheiro = new File(relativePath + "/" + name + "." + extention);
+        try {
+            Scanner verificador = new Scanner(ficheiro);
+        } catch (FileNotFoundException e) {
+            ficheiro.createNewFile();
+        }
+    }
+
+    //Manager methods
+
+    public static int countTheNumberOfLines(String relativePath) throws IOException {
+        File ficheiro = new File(relativePath);
+        Scanner cont = new Scanner(ficheiro);
+        int nLines = 0;
+        while (cont.hasNextLine()) {
+            nLines++;
+            cont.nextLine();
+        }
+        return nLines;
+    }
+
+    public static boolean fileExist(String relativePath) throws IOException {
+        File ficheiro = new File(relativePath);
+        return !ficheiro.createNewFile();
+    }
+
+    public static void cat(String relativePath) throws IOException {
+        File ficheiro = new File(relativePath);
+        int nLines = countTheNumberOfLines(relativePath);
+        String[] fileCont = new String[nLines];
+        Scanner cont = new Scanner(ficheiro);
+        for (int i = 0; i < nLines; i++) {
+            fileCont[i] = cont.nextLine();
+        }
+        cont.close();
+        for (String str : fileCont) {
+            System.out.println(str);
+        }
+
+    }
+
+    public static void fileWriter(String relativePath, String content) throws IOException {
+        File ficheiro = new File(relativePath);
+        int nLines = countTheNumberOfLines(relativePath);
+        String[] fileCont = new String[nLines];
+        Scanner cont = new Scanner(ficheiro);
+        for (int i = 0; i < nLines; i++) {
+            fileCont[i] = cont.nextLine();
+        }
+        cont.close();
+        PrintWriter escritor = new PrintWriter(ficheiro);
+        for (String line : fileCont) {
+            escritor.println(line);
+        }
+        escritor.println(content);
+        escritor.close();
+    }
+
+    public static void renameFile(String relativePathOldFile, String newDir, String newName, String newExtention) throws IOException {
         File oldFile = new File(relativePathOldFile);
-        File newFile = new File(newDir+"/"+newName+"."+newExtention);
+        File newFile = new File(newDir + "/" + newName + "." + newExtention);
         Scanner cont = new Scanner(oldFile);
         PrintWriter escritor = new PrintWriter(newFile);
-        while(cont.hasNextLine()){
+        while (cont.hasNextLine()) {
             escritor.println(cont.nextLine());
         }
         escritor.close();
@@ -20,24 +86,29 @@ public class FileManager{
         oldFile.delete();
     }
 
+    //Erase methods
 
     public static void rm(String relativePath){
         Scanner teclado = new Scanner(System.in);
-        System.out.print("Pretende eliminar este diretório, juntamente com todo o seu conteûdo? (s/n): ");
+        System.out.print("Pretende eliminar este diretório, juntamente com todo o seu conteúdo? (s/n): ");
         String resposta = teclado.nextLine();
-        switch (resposta.toLowerCase()){
+        switch (resposta.toLowerCase()) {
             case "s":
             case "sim":
             case "y":
             case "yes":
                 System.out.println("A apagar todo o conteúdo do diretório...");
                 File dir = new File(relativePath);
-                    String contentOfDir[] =dir.list();
-                    for(String fileName:contentOfDir){
-                        File currentFile = new File(relativePath+"/"+fileName);
+                String[] contentOfDir = dir.list();
+                try {
+                    for (String fileName : contentOfDir) {
+                        File currentFile = new File(relativePath + "/" + fileName);
                         currentFile.delete();
                     }
+                } catch (NullPointerException e) {
                     dir.delete();
+                }
+                dir.delete();
                 System.out.println("Diretório apagado!");
                 break;
             case "n":
@@ -50,46 +121,7 @@ public class FileManager{
                 System.out.println("O diretório não será apagado.");
         }
     }
-    public static void mkDir(String relativePath){
-        new File(relativePath).mkdir();
-    }
-    public static void cat(String relativePath) throws IOException {
-        File ficheiro = new File(relativePath);
-        int nLines = countTheNumberOfLines(relativePath);
-        String[] fileCont = new String[nLines];
-        Scanner cont = new Scanner(ficheiro);
-        for(int i=0;i<nLines;i++){
-            fileCont[i]=cont.nextLine();
-        }
-        cont.close();
-        for(String str:fileCont){
-            System.out.println(str);
-        }
 
-    }
-
-
-    public static int countTheNumberOfLines(String relativePath)throws IOException{
-        File ficheiro = new File(relativePath);
-        Scanner cont = new Scanner(ficheiro);
-        int nLines=0;
-        while(cont.hasNextLine()){
-            nLines++;
-            cont.nextLine();
-        }
-        return nLines;
-    }
-    public static void main(String[] args) throws IOException {
-        mkDir("rato");
-        //rm("rato");
-        //fileCreator("rato","Osório","celiacos");
-        cat("rato/Osório.celiacos");
-        renameFile("rato/Osório.celiacos","rato","Pao","gluten");
-    }
-    public static boolean fileExist(String relativePath) throws IOException {
-        File ficheiro = new File(relativePath);
-        return !ficheiro.createNewFile();
-    }
     public static void lineEraser(String relativePath,int line) throws IOException{
         File ficheiro = new File(relativePath);
         int nLines=countTheNumberOfLines(relativePath);
@@ -110,31 +142,6 @@ public class FileManager{
         escritor.close();
 
     }
-    public static void fileWriter(String relativePath,String content) throws IOException {
-        File ficheiro = new File(relativePath);
-        int nLines = countTheNumberOfLines(relativePath);
-        String[] fileCont = new String[nLines];
-        Scanner cont = new Scanner(ficheiro);
-        for(int i=0;i<nLines;i++){
-            fileCont[i]=cont.nextLine();
-        }
-        cont.close();
-        PrintWriter escritor = new PrintWriter(ficheiro);
-        for(String line:fileCont){
-            escritor.println(line);
-        }
-        escritor.println(content);
-        escritor.close();
-    }
 
 
-    public static void fileCreator(String relativePath,String name , String extention) throws IOException {
-        File ficheiro = new File(relativePath+"/"+name+"."+extention);
-        try {
-            Scanner verificador = new Scanner(ficheiro);
-        } catch (FileNotFoundException e) {
-            ficheiro.createNewFile();
-        }
-
-    }
 }
