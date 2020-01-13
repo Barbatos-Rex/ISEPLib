@@ -9,13 +9,13 @@ public class PyVariable {
     private String myType= null;
 
 
-    public PyVariable(String value, String type){
+    public PyVariable(String value, String type) throws ObjectConstructionFailedException {
         type = type.toLowerCase();
-        switch(type){
+        switch (type) {
             case "int":
-                if(Syntax.isInt(value)){
-                    this.intValue=Integer.parseInt(value);
-                }else{
+                if (Syntax.isInt(value)) {
+                    this.intValue = Integer.parseInt(value);
+                } else {
                     throw new NumberFormatException("The String cannot be converted to int");
                 }
                 break;
@@ -37,9 +37,8 @@ public class PyVariable {
                     this.stringValue=value;
                 break;
             default:
-                throw new ClassFormatError("Chosen type is invalid (Either not implemented or not valid, realy wtf!)");
+                throw new ObjectConstructionFailedException("Chosen type is invalid (Either not implemented or not valid, realy wtf!)");
         }
-
     }
 
 
