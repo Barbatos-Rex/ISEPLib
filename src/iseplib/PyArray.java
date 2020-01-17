@@ -2,7 +2,6 @@ package iseplib;
 
 public class PyArray{
     private String[] mainArray= new String[5000];
-    public int length;
     public PyArray(String[] list) throws ArrayLengthOverflowException {
         if (list.length > 5000) {
             throw new ArrayLengthOverflowException("The array you tried to create exceeds the memory capacity of the array constructor!");
@@ -12,14 +11,15 @@ public class PyArray{
             }
             this.mainArray=condenser(this.mainArray, list.length);
         }
-        this.length=mainArray.length;
+    }
+    public int length(){
+        return this.mainArray.length;
     }
     public String[] condenser(String[] arr,int newLen){
         String[] tmp = new String[newLen];
         for(int i=0;i<newLen;i++){
             tmp[i]=arr[i];
         }
-        this.length=mainArray.length;
         return tmp;
     }
     public void append(String str){
@@ -29,7 +29,6 @@ public class PyArray{
         }
         tmp[this.mainArray.length]=str;
         this.mainArray=tmp;
-        this.length=mainArray.length;
     }
     public void print(){
         System.out.print("["+this.mainArray[0]);
@@ -37,7 +36,6 @@ public class PyArray{
             System.out.print(","+this.mainArray[i]);
         }
         System.out.println("]");
-        this.length=mainArray.length;
     }
     public void pop(int index){
         String[] tmp = new String[this.mainArray.length-1];
@@ -48,7 +46,6 @@ public class PyArray{
             tmp[i]=this.mainArray[i+1];
         }
         this.mainArray=tmp;
-        this.length=mainArray.length;
     }
     public void pop(){
         String[] tmp = new String[this.mainArray.length-1];
@@ -56,18 +53,16 @@ public class PyArray{
             tmp[i]=this.mainArray[i];
         }
         this.mainArray=tmp;
-        this.length=mainArray.length;
     }
     public void reverse(){
-        String[] tmp = new String[this.length];
-        for(int i=0;i<this.length;i++){
-            tmp[i]=this.mainArray[this.length-i-1];
+        String[] tmp = new String[length()];
+        for(int i=0;i<length();i++){
+            tmp[i]=this.mainArray[length()-i-1];
         }
         this.mainArray=tmp;
-        this.length=mainArray.length;
     }
     public void insert(String vallue, int index){
-        String[] tmp = new String[this.length+1];
+        String[] tmp = new String[length()+1];
         for(int i=0;i<index;i++){
             tmp[i]=this.mainArray[i];
         }
@@ -76,6 +71,21 @@ public class PyArray{
             tmp[i]=this.mainArray[i-1];
         }
         this.mainArray=tmp;
-        this.length=mainArray.length;
+    }
+    private void swap(int index1){
+        String aux = this.mainArray[index1];
+        this.mainArray[index1]=this.mainArray[index1+1];
+        this.mainArray[index1+1]=aux;
+    }
+    public void sort(){
+        int posInArr=0;
+        while(posInArr!=length()-1){
+            if(this.mainArray[posInArr].compareToIgnoreCase(this.mainArray[posInArr+1])>0){
+                swap(posInArr);
+                posInArr=0;
+            }else{
+                posInArr++;
+            }
+        }
     }
 }
