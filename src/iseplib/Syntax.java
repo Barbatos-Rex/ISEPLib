@@ -51,4 +51,22 @@ public class Syntax {
             }
         }
     }
+
+    public static String[][] tableCreator(String[] arr) {
+        String[][] tab = new String[arr.length][2];
+        for (int i = 0; i < arr.length; i++) {
+            tab[i][0] = Integer.toString(i);
+            tab[i][1] = arr[i];
+        }
+        return tab;
+    }
+
+    public static int[] stringToIntArr(String[] arr) {
+        int[] nArr = new int[arr.length];
+        for (int i = 0; i < arr.length; i++) {
+            nArr[i] = Integer.parseInt(arr[i]);
+        }
+        return nArr;
+    }
 }
+

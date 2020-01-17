@@ -97,7 +97,7 @@ public class FileManager {
 
     //Erase methods
 
-    public static void rm(String relativePath){
+    private static void rm(String relativePath) {
         Scanner teclado = new Scanner(System.in);
         System.out.print("Pretende eliminar este diretório, juntamente com todo o seu conteúdo? (s/n): ");
         String resposta = teclado.nextLine();
@@ -152,13 +152,14 @@ public class FileManager {
 
     }
 
-    public static void fileDeleter(String filePath) {
+    private static void fileDeleter(String filePath) {
         Scanner keyboard = new Scanner(System.in);
         System.out.print("Are you sure you want to delete a file (y/n): ");
         String awnser = keyboard.nextLine();
         if ("y".equals(awnser)) {
             File file = new File(filePath);
-            file.delete();
+            System.out.println(file.delete());
+
         }
 
     }
