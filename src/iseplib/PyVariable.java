@@ -1,4 +1,4 @@
-package barbatos_rex;
+package iseplib;
 
 import java.lang.NumberFormatException;
 import java.util.InputMismatchException;
@@ -9,6 +9,7 @@ public class PyVariable {
     private double doubleValue = 0.0;
     private long longValue = 0;
     public String myType = null;
+    public String myValue = null;
 
 
     public PyVariable(String value, String type) throws ObjectConstructionFailedException {
@@ -42,6 +43,7 @@ public class PyVariable {
                 throw new ObjectConstructionFailedException("Chosen type is invalid (Either not implemented or invalid, really wtf!)");
         }
         this.myType = type;
+        this.myValue = value;
     }
 
     public void status() throws ObjectConstructionFailedException {

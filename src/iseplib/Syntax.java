@@ -1,4 +1,4 @@
-package barbatos_rex;
+package iseplib;
 
 public class Syntax {
 
@@ -30,24 +30,25 @@ public class Syntax {
             return false;
         }
     }
-    public static void condenserStr(String[] ...vectors){
-        for(String[] arr:vectors){
-            int nElements=0;
-            for (String s : arr) {
-                if (s != null) {
-                    nElements++;
+    public static void condenserStr(String[] ...vectors) {
+        if (vectors.length != 0) {
+            for (String[] arr : vectors) {
+                int nElements = 0;
+                for (String s : arr) {
+                    if (s != null) {
+                        nElements++;
+                    }
                 }
-            }
-            int posInArr=0;
-            String[] tempVec = new String[nElements];
-            for (String s : arr) {
-                if (s != null) {
-                    tempVec[posInArr] = s;
-                    posInArr++;
+                int posInArr = 0;
+                String[] tempVec = new String[nElements];
+                for (String s : arr) {
+                    if (s != null) {
+                        tempVec[posInArr] = s;
+                        posInArr++;
+                    }
                 }
+                arr = tempVec;
             }
-            arr=tempVec;
-
         }
     }
 }

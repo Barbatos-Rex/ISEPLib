@@ -1,4 +1,4 @@
-package barbatos_rex;
+package iseplib;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -56,6 +56,16 @@ public class FileManager {
 
     }
 
+    public static void clear(String relativePath) {
+        File toClean = new File(relativePath);
+        try {
+            PrintWriter cleanner = new PrintWriter(toClean);
+            cleanner.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("That file does not exist.");
+        }
+    }
+
     public static void fileWriter(String relativePath, String content) throws IOException {
         File ficheiro = new File(relativePath);
         int nLines = countTheNumberOfLines(relativePath);
@@ -73,7 +83,7 @@ public class FileManager {
         escritor.close();
     }
 
-    public static void renameFile(String relativePathOldFile, String newDir, String newName, String newExtention) throws IOException {
+    public static void copyFile(String relativePathOldFile, String newDir, String newName, String newExtention) throws IOException {
         File oldFile = new File(relativePathOldFile);
         File newFile = new File(newDir + "/" + newName + "." + newExtention);
         Scanner cont = new Scanner(oldFile);
@@ -83,7 +93,6 @@ public class FileManager {
         }
         escritor.close();
         cont.close();
-        oldFile.delete();
     }
 
     //Erase methods
@@ -132,16 +141,25 @@ public class FileManager {
         }
         cont.nextLine();
         for(int i=line-1;i<nLines-1;i++){
-            fileCont[i]=cont.nextLine();
+            fileCont[i] = cont.nextLine();
         }
         cont.close();
         PrintWriter escritor = new PrintWriter(ficheiro);
-        for(String linha:fileCont){
+        for (String linha : fileCont) {
             escritor.println(linha);
         }
         escritor.close();
 
     }
 
+    public static void fileDeleter(String filePath) {
+        Scanner keyboard = new Scanner(System.in);
+        System.out.print("Are you sure you want to delete a file (y/n): ");
+        String awnser = keyboard.nextLine();
+        if ("y".equals(awnser)) {
+            File file = new File(filePath);
+            file.delete();
+        }
 
+    }
 }

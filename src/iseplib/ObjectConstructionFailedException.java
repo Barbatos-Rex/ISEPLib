@@ -1,4 +1,4 @@
-package barbatos_rex;
+package iseplib;
 
 public class ObjectConstructionFailedException extends Exception {
     public ObjectConstructionFailedException(String str) {

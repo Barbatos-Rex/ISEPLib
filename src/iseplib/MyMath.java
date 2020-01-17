@@ -1,4 +1,4 @@
-package barbatos_rex;
+package iseplib;
 
 public class MyMath {
     public static double round(double vallue, double decimalPlace){
@@ -34,6 +34,9 @@ public class MyMath {
 
 
     public static double media(double[] arr){
+        if (arr.length == 0) {
+            return 0;
+        }
         double sum=0;
         for(double number:arr){
             sum+=number;

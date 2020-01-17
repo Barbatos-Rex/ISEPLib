@@ -1,20 +1,22 @@
-package barbatos_rex;
+package iseplib;
 import java.lang.Math;
-public class Point {
+
+class Point {
     public double x;
     public double y;
     public double dist;
     public double ang;
-    private boolean initialInfo=true;
+    private boolean initialInfo = true;
+
     private void calculateAngleAndDistance() {
-        if (!initialInfo) {
+        if (initialInfo) {
             if (this.x == 0) {
                 this.ang = (MyMath.PI / 2) * (this.y / MyMath.abs(this.y));
             } else {
                 this.ang = Math.atan(y / x);
             }
-            if(this.ang<0){
-                this.ang+=2*MyMath.PI;
+            if (this.ang < 0) {
+                this.ang += 2 * MyMath.PI;
             }
             this.dist = Math.pow(this.x * this.x + this.y * this.y, 0.5);
         }
