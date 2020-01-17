@@ -1,4 +1,6 @@
-package iseplib;
+package iseplib.classes;
+
+import iseplib.Exceptions.ObjectConstructionFailedException;
 
 import java.lang.NumberFormatException;
 import java.util.InputMismatchException;

@@ -1,4 +1,4 @@
-package iseplib;
+package iseplib.classes;
 
 import java.io.File;
 import java.io.FileNotFoundException;

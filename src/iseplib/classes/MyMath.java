@@ -1,4 +1,4 @@
-package iseplib;
+package iseplib.classes;
 
 public class MyMath {
     public static double round(double vallue, double decimalPlace){
