@@ -3,15 +3,15 @@ package iseplib.classes;
 import iseplib.Exceptions.ArrayLengthOverflowException;
 
 public class PyArray{
-    private String[] mainArray= new String[5000];
+    private String[] mainArray = new String[50000000];
     public PyArray(String[] list) throws ArrayLengthOverflowException {
-        if (list.length > 5000) {
+        if (list.length > 50000000) {
             throw new ArrayLengthOverflowException("The array you tried to create exceeds the memory capacity of the array constructor!");
         } else {
             for (int i = 0; i < list.length; i++) {
                 this.mainArray[i] = list[i];
             }
-            this.mainArray=condenser(this.mainArray, list.length);
+            this.mainArray = condenser(this.mainArray, list.length);
         }
     }
     public int length(){
@@ -49,24 +49,27 @@ public class PyArray{
         }
         this.mainArray=tmp;
     }
-    public void pop(){
-        String[] tmp = new String[this.mainArray.length-1];
-        for(int i=0;i<tmp.length;i++){
-            tmp[i]=this.mainArray[i];
+
+    public void pop() {
+        String[] tmp = new String[this.mainArray.length - 1];
+        for (int i = 0; i < tmp.length; i++) {
+            tmp[i] = this.mainArray[i];
         }
-        this.mainArray=tmp;
+        this.mainArray = tmp;
     }
-    public void reverse(){
+
+    public void invert() {
         String[] tmp = new String[length()];
-        for(int i=0;i<length();i++){
-            tmp[i]=this.mainArray[length()-i-1];
+        for (int i = 0; i < length(); i++) {
+            tmp[i] = this.mainArray[length() - i - 1];
         }
-        this.mainArray=tmp;
+        this.mainArray = tmp;
     }
-    public void insert(String vallue, int index){
-        String[] tmp = new String[length()+1];
-        for(int i=0;i<index;i++){
-            tmp[i]=this.mainArray[i];
+
+    public void insert(String vallue, int index) {
+        String[] tmp = new String[length() + 1];
+        for (int i = 0; i < index; i++) {
+            tmp[i] = this.mainArray[i];
         }
         tmp[index]=vallue;
         for(int i=index+1;i<tmp.length;i++){
