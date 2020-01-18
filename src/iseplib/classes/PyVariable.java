@@ -5,15 +5,31 @@ import iseplib.Exceptions.ObjectConstructionFailedException;
 import java.lang.NumberFormatException;
 import java.util.InputMismatchException;
 
+/**This class intends to simulate how variables act in Python.
+ * @author Barbatos Rex
+ * @version 1.0.0 Jan 17, 2020
+ * Note: Any reference to "variable" in this javadoc refers to the PyVariable object.
+ */
 public class PyVariable {
     private char charValue;
     private int intValue = 0;
     private double doubleValue = 0.0;
     private long longValue = 0;
+    /**This String stores the current type the variable is.
+     *
+     */
     public String myType = null;
+    /**
+     * This String stores the current value of the variable.
+     */
     public String myValue = null;
 
-
+    /**Constructor of the class.
+     *
+     * @param value A String to store the value of the PyVariable.
+     * @param type A String to store the type of the variable: Can be "int", "double", "long" and "String".
+     * @throws ObjectConstructionFailedException The exception created to throw out in case the construction of the object fails.
+     */
     public PyVariable(String value, String type) throws ObjectConstructionFailedException {
         type = type.toLowerCase();
         switch (type) {
@@ -48,6 +64,10 @@ public class PyVariable {
         this.myValue = value;
     }
 
+    /**A simple tool for debugging purposes. It displays the Value and Type of the PyVariable.
+     *
+     * @throws ObjectConstructionFailedException The exception created to throw out in case the construction of the object fails.
+     */
     public void status() throws ObjectConstructionFailedException {
         System.out.println("My type: " + this.myType);
         switch (this.myType) {
@@ -69,6 +89,11 @@ public class PyVariable {
 
     }
 
+    /**This method changes the type of the function and consequently its value.
+     *
+     * @param newType The new type to which is to change.
+     * @throws ObjectConstructionFailedException The exception created to throw out in case the construction of the object fails.
+     */
     public void changeType(String newType) throws ObjectConstructionFailedException {
         switch (newType.toLowerCase()) {
             case "int":
@@ -82,6 +107,11 @@ public class PyVariable {
         }
     }
 
+    /**This method changes the value of the variable to a new one.
+     *
+     * @param newValue The new value to which the variable will change.
+     * @throws ObjectConstructionFailedException The exception created to throw out in case the construction of the object fails or the parameters
+     */
     public void assignValue(String newValue) throws ObjectConstructionFailedException {
         switch (this.myType) {
             case "int":

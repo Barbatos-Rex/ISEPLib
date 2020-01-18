@@ -1,21 +1,42 @@
 package iseplib.classes;
 
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Scanner;
 
+/**This class manages files and directories.
+ *
+ * Is divided in three parts: Create/Manage/Erase.
+ * @author Barbatos Rex.
+ * @version 1.0.0 Jan 17, 2020.
+ */
 public class FileManager {
 
     //Creation methods
 
+    /**Creates a directory in a expecified path.
+     *
+     *
+     * @param relativePath The relative or absolute path of the directory to create.
+     */
     public static void mkDir(String relativePath) {
-        new File(relativePath).mkdir();
+        new File(relativePath).mkdirs();
     }
 
-    public static void fileCreator(String relativePath, String name, String extention) throws IOException {
-        File ficheiro = new File(relativePath + "/" + name + "." + extention);
+    /**
+     * Creates a blank file.
+     *
+     * This method creates a blank file in an already existing directory.
+     * @param relativePath The relative or absolute path of the file to create.
+     * @param name The name of the file you want to create.
+     * @param extension The extension of the file (".txt",".csv",etc.).
+     * @throws IOException Will throw this exception if permissions for creating a file are not correct.
+     */
+    public static void fileCreator(String relativePath, String name, String extension) throws IOException {
+        File ficheiro = new File(relativePath + "/" + name + "." + extension);
         try {
             Scanner verificador = new Scanner(ficheiro);
         } catch (FileNotFoundException e) {
@@ -25,6 +46,12 @@ public class FileManager {
 
     //Manager methods
 
+    /**Counts the number of lines in a text file.
+     *
+     * @param relativePath The relative or absolute path of an already existing text file.
+     * @return Returns the number of lines that a text file has.
+     * @throws IOException Will throw this exception if the file doesn't exist or permissions are not correct.
+     */
     public static int countTheNumberOfLines(String relativePath) throws IOException {
         File ficheiro = new File(relativePath);
         Scanner cont = new Scanner(ficheiro);
@@ -36,11 +63,22 @@ public class FileManager {
         return nLines;
     }
 
+    /**Verifies the existence of a file.
+     *
+     * @param relativePath The relative or absolute path of an already existing text file.
+     * @return Returns true if the file exist otherwise returns false.
+     * @throws IOException Will throw this exception if the file doesn't exist or permissions are not correct.
+     */
     public static boolean fileExist(String relativePath) throws IOException {
         File ficheiro = new File(relativePath);
         return !ficheiro.createNewFile();
     }
 
+    /**Prints the content of a text file.
+     *
+     * @param relativePath The relative or absolute path of an already existing text file.
+     * @throws IOException Will throw this exception if the file doesn't exist or permissions are not correct.
+     */
     public static void cat(String relativePath) throws IOException {
         File ficheiro = new File(relativePath);
         int nLines = countTheNumberOfLines(relativePath);
@@ -56,6 +94,10 @@ public class FileManager {
 
     }
 
+    /**Clears the content of a text file.
+     *
+     * @param relativePath The relative or absolute path of an already existing text file.
+     */
     public static void clear(String relativePath) {
         File toClean = new File(relativePath);
         try {
@@ -66,6 +108,12 @@ public class FileManager {
         }
     }
 
+    /**Writes a message to a text file.
+     *
+     * @param relativePath The relative or absolute path of an already existing text file.
+     * @param content The message you want to write to a file.
+     * @throws IOException Will throw this exception if the file doesn't exist or permissions are not correct.
+     */
     public static void fileWriter(String relativePath, String content) throws IOException {
         File ficheiro = new File(relativePath);
         int nLines = countTheNumberOfLines(relativePath);
@@ -83,9 +131,17 @@ public class FileManager {
         escritor.close();
     }
 
-    public static void copyFile(String relativePathOldFile, String newDir, String newName, String newExtention) throws IOException {
+    /**Creates a copy of a file.
+     *
+     * @param relativePathOldFile The relative or absolute path of an already existing text file.
+     * @param newDir The relative or absolute path of the new directory.
+     * @param newName The new name for the copied file
+     * @param newExtension The new extension (".txt",".csv",etc)
+     * @throws IOException Will throw this exception if the file doesn't exist or permissions are not correct.
+     */
+    public static void copyFile(String relativePathOldFile, String newDir, String newName, String newExtension) throws IOException {
         File oldFile = new File(relativePathOldFile);
-        File newFile = new File(newDir + "/" + newName + "." + newExtention);
+        File newFile = new File(newDir + "/" + newName + "." + newExtension);
         Scanner cont = new Scanner(oldFile);
         PrintWriter escritor = new PrintWriter(newFile);
         while (cont.hasNextLine()) {
@@ -131,6 +187,12 @@ public class FileManager {
         }
     }
 
+    /**
+     * Erasers a line of a text file.
+     * @param relativePath The relative or absolute path of an already existing text file.
+     * @param line The number of the line you want to erase.
+     * @throws IOException Will throw this exception if the file doesn't exist or permissions are not correct.
+     */
     public static void lineEraser(String relativePath,int line) throws IOException{
         File ficheiro = new File(relativePath);
         int nLines=countTheNumberOfLines(relativePath);
