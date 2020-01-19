@@ -29,7 +29,7 @@ public class PyArray{
      *
      */
     public PyArray(){
-        this.mainArray= new String[]{""};
+        this.mainArray= new String[]{};
     }
 
     /**This method calculates the length of the PyArray.
@@ -82,13 +82,15 @@ public class PyArray{
      *
      * @param str The item to be inserted.
      */
-    public void append(String str){
-        String tmp[] = new String[this.mainArray.length+1];
-        for(int i =0;i<this.mainArray.length;i++){
-            tmp[i]=this.mainArray[i];
+    public void append(String str) {
+        if (str != null && !str.equals("")) {
+            String tmp[] = new String[this.mainArray.length + 1];
+            for (int i = 0; i < this.mainArray.length; i++) {
+                tmp[i] = this.mainArray[i];
+            }
+            tmp[this.mainArray.length] = str;
+            this.mainArray = tmp;
         }
-        tmp[this.mainArray.length]=str;
-        this.mainArray=tmp;
     }
 
     /**This method prints the array in Python form: [element1,element2,...,elementn] for an n length array.
@@ -97,8 +99,21 @@ public class PyArray{
     public void print() {
         try {
             System.out.print("[" + this.mainArray[0]);
+            boolean air = false;
+            try{
+            if(this.mainArray[0].equals("")){
+                air=true;
+            }
+            }catch (NullPointerException e){
+                air=true;
+            }
             for (int i = 1; i < this.mainArray.length; i++) {
-                System.out.print("," + this.mainArray[i]);
+                if (air) {
+                    System.out.print(this.mainArray[i]);
+                } else {
+                    System.out.print("," + this.mainArray[i]);
+                }
+                air=false;
             }
             System.out.println("]");
         } catch (ArrayIndexOutOfBoundsException e) {
@@ -153,23 +168,20 @@ public class PyArray{
      */
 
     public void insert(String vallue, int index) {
-        String[] tmp = new String[length() + 1];
-        for (int i = 0; i < index; i++) {
-            tmp[i] = this.mainArray[i];
-        }
-        tmp[index]=vallue;
-        for(int i=index+1;i<tmp.length;i++){
-            tmp[i]=this.mainArray[i-1];
-        }
-        this.mainArray=tmp;
-    }
-    private void swap(int index1){
-        String aux = this.mainArray[index1];
-        this.mainArray[index1]=this.mainArray[index1+1];
-        this.mainArray[index1+1]=aux;
-    }
 
-    /** A simple method to sort the items/elements in the list,
+        if (vallue != null && !vallue.equals("")) {
+            String[] tmp = new String[length() + 1];
+            for (int i = 0; i < index; i++) {
+                tmp[i] = this.mainArray[i];
+            }
+            tmp[index] = vallue;
+            for (int i = index + 1; i < tmp.length; i++) {
+                tmp[i] = this.mainArray[i - 1];
+            }
+            this.mainArray = tmp;
+        }
+    }
+        /** A simple method to sort the items/elements in the list,
      *
      */
     public void sort(){
@@ -269,6 +281,16 @@ public class PyArray{
             }
         }
         return -1;
+    }
+    public String value(int index) {
+        if (length() < index || index < 0) {
+            return null;
+        } else {
+            if(this.mainArray[index].equals("")){
+                return "\"\"";
+            }
+            return this.mainArray[index];
+        }
     }
 
 }
