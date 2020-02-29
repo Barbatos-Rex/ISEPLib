@@ -96,29 +96,20 @@ public class PyArray{
     /**This method prints the array in Python form: [element1,element2,...,elementn] for an n length array.
      *
      */
-    public void print() {
-        try {
-            System.out.print("[" + this.mainArray[0]);
-            boolean air = false;
-            try{
-            if(this.mainArray[0].equals("")){
-                air=true;
-            }
-            }catch (NullPointerException e){
-                air=true;
-            }
-            for (int i = 1; i < this.mainArray.length; i++) {
-                if (air) {
-                    System.out.print(this.mainArray[i]);
-                } else {
-                    System.out.print("," + this.mainArray[i]);
-                }
-                air=false;
-            }
-            System.out.println("]");
-        } catch (ArrayIndexOutOfBoundsException e) {
-            System.out.println("[]");
+    public String toString() {
+        if(this.mainArray.length==0){
+            return "[]";
         }
+        String tmp="[";
+        for(int i=0;i<this.mainArray.length;i++){
+            if(i+1!=this.mainArray.length) {
+                tmp += this.mainArray[i] + ",";
+            }
+            else{
+                tmp+= this.mainArray[i];
+            }
+        }
+        return tmp+"]";
     }
 
     /**This method removes an item from any position of the vector.
@@ -201,7 +192,7 @@ public class PyArray{
      * @param list New list to the array assume.
      */
 
-    public void setVallues(String[] list){
+    public void setValues(String[] list){
         this.mainArray=list;
     }
 
